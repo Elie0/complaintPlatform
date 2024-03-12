@@ -1,5 +1,6 @@
 import ComplaintCategoryModel, { ComplaintCategory } from '../Schemas/complainCategory';
 import ComplaintModel, {Complaint,ComplaintStatus} from '../Schemas/complaint';
+import { io } from '../app';
 
 export const getComplaintCategories = async (): Promise<ComplaintCategory[]> => {
 
@@ -85,12 +86,25 @@ export const getAllClientComplaints = async (page: number,pageSize: number,statu
   return complaints;
 };
 
-export const updateComplaintStatus = async (complaintId: string, newStatus: string): Promise<Complaint | null> => {
+export const updateComplaintStatus = async (
+  complaintId: string,
+  newStatus: string
+): Promise<Complaint | null> => {
   const updatedComplaint = await ComplaintModel.findByIdAndUpdate(
     complaintId,
     { status: newStatus },
     { new: true }
-  ).populate('categories', 'name').populate('createdBy', 'name');
+  ).populate('categories', 'name').populate('createdBy', '_id name') as Complaint & {
+    createdBy: { _id: string, name: string };
+  };
+
+  if (updatedComplaint) {
+    const userId: string = updatedComplaint.createdBy._id;
+    io.emit(userId, {
+      complaintId: updatedComplaint.title,
+      newStatus: updatedComplaint.status,
+    });
+  }
 
   return updatedComplaint;
 };
