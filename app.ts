@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import { isAuth } from './middleware/is-auth';
 import { isAdmin } from './middleware/checkAdmin';
-import complaintCategoryRoute from './routes/complaintCategory';
+import complaintCategoryRoute from './routes/admin';
 import clientRoutes from './routes/clientComplaint';
 import publicRoutes from './routes/public'
 import dotenv from 'dotenv';
@@ -42,3 +42,6 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+
+

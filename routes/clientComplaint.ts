@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post('/complaint',submitComplaint);
 router.get('/complaints', getClientComplaints);
-router.get('/complaints/:complaintId', getClientComplaintDetails);
+router.get('/complaint/:complaintId', getClientComplaintDetails);
 router.delete('/complaints/:complaintId', deleteClientComplaint);
 router.put('/change-password',changeClientPassword);
 

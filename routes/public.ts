@@ -1,5 +1,5 @@
 import express from 'express';
-import { showComplaintCategories } from '../controllers/complaintCategory';
+import { showComplaintCategories } from '../controllers/admin';
 const 
 router = express.Router();
 

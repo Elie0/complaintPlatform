@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema, set } from 'mongoose';
 
 export enum ComplaintStatus {
   PENDING = 'PENDING',
@@ -29,7 +29,7 @@ const complaintSchema = new Schema({
       ref: 'ComplaintCategory',
       required: true,
     },
-  ],
+  ],  
   status: 
   { 
     type: String,
@@ -44,3 +44,4 @@ const complaintSchema = new Schema({
 });
 
 export default mongoose.model<Complaint>('Complaint', complaintSchema);
+
